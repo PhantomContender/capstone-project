@@ -20,3 +20,7 @@ app.listen(PORT, () =>
 });
 
 app.use('/api/auth', require('./routes/authRoutes'));
+
+app.use('/api/appointments', require('./routes/appointmentRoutes'));
+
+app.use(errorHandler);

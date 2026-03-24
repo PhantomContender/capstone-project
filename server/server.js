@@ -18,3 +18,5 @@ app.listen(PORT, () =>
 {
   console.log(`Zenith Server running on port ${PORT}`);
 });
+
+app.use('/api/auth', require('./routes/authRoutes'));

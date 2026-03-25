@@ -1,17 +1,36 @@
-const mongoose = require('mongoose');
+const Service = require('../models/Service');
 
-exports.getServices = async (req, res) => {
-  try {
-    const rawData = await mongoose.connection.db.collection('services').find({}).toArray();
+const getServices = async (req, res) => {
+  try 
+  {
+    const services = await Service.find({});
     
-    console.log('Total documents found in Zenith.services:', rawData.length);
-    
-    if (rawData.length === 0) {
-        return res.status(404).json({ message: "Database is connected, but the 'services' collection is empty." });
+    if (services.length === 0) {
+      return res.status(200).json([]); 
     }
 
-    res.status(200).json(rawData);
-  } catch (error) {
+    res.status(200).json(services);
+  }
+  catch (error) 
+  {
+    res.status(500).json({ message: 'The Promethean flame flickered: ' + error.message });
+  }
+};
+
+const getServiceById = async (req, res) => {
+  try {
+    const service = await Service.findById(req.params.id);
+
+    if (service) {
+      res.status(200).json(service);
+    } else {
+      res.status(404).json({ message: 'Service not found in the archives.' });
+    }
+  } 
+  catch (error) 
+  {
     res.status(500).json({ message: error.message });
   }
 };
+
+module.exports = { getServices, getServiceById };

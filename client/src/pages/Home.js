@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '../api';
+import { Link } from 'react-router-dom';
 
 const Home = () => 
 {
@@ -36,7 +37,7 @@ const Home = () =>
               </div>
             </div>
             <div className="card-footer bg-white border-top-0">
-              <button className="btn btn-outline-primary w-100">View Details</button>
+              <Link to={`/service/${service._id}`} className="btn btn-outline-secondary w-100 mt-2">View Details</Link>
             </div>
           </div>
         </div>

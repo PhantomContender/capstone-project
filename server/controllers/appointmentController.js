@@ -1,12 +1,20 @@
 const Appointment = require('../models/Appointment');
 const Service = require('../models/Service');
 
-exports.addAppointment = async (req, res) => 
-    {
-  try  
-  {
+exports.addAppointment = async (req, res) => {
+  try {
     const { service, appointmentDate, notes } = req.body;
 
+    // 1. Check if an appointment already exists at this exact time
+    const existingAppointment = await Appointment.findOne({ appointmentDate });
+
+    if (existingAppointment) {
+      return res.status(400).json({ 
+        message: 'This time slot is already claimed in the ledger. Please select another.' 
+      });
+    }
+
+    // 2. If clear, proceed with creation
     const appointment = await Appointment.create({
       user: req.user.id, 
       service,
@@ -15,9 +23,7 @@ exports.addAppointment = async (req, res) =>
     });
 
     res.status(201).json(appointment);
-  } 
-  catch (error) 
-  {
+  } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };

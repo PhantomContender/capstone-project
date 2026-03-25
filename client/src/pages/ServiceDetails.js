@@ -24,17 +24,24 @@ const ServiceDetails = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      await api.post('/appointments', {
-        service: id,
-        appointmentDate: date,
-        notes,
-      });
-      alert('Rite Scheduled Successfully!');
-      navigate('/'); // Or to a 'My Appointments' page
-    } catch (err) {
-      alert(err.response?.data?.message || 'Booking failed');
+      const res = await api.post('/appointments', {
+      service: id,        
+      appointmentDate: date,
+      notes: notes
+    });
+
+    if (res.status === 201) {
+      alert('Success! Your appointment is recorded in the Zenith Ledger.');
+
+      navigate('/my-appointments'); 
     }
-  };
+  } 
+  catch (err) 
+  {
+    const errorMsg = err.response?.data?.message || 'The booking ritual failed.';
+    alert(errorMsg);
+  }
+};
 
   if (!service) return <div>Loading the Archives...</div>;
 

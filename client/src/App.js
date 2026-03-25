@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import ServiceDetails from './pages/ServiceDetails';
+import MyAppointments from './pages/MyAppointments';
 
 function App() {
 
@@ -26,6 +27,7 @@ const [user, setUser] = useState(null);
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/service/:id" element={<ServiceDetails />} />
+          <Route path="/my-appointments" element={<MyAppointments />} />
 
         </Routes>
       </main>

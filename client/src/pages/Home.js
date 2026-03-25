@@ -25,23 +25,32 @@ const Home = () =>
   return (
     <div className="row mt-4">
       <h2 className="mb-4">Our Premium Services</h2>
-      {services.map((service) => (
-        <div key={service._id} className="col-md-4 mb-4">
-          <div className="card shadow-sm h-100">
-            <div className="card-body">
-              <h5 className="card-title text-primary">{service.name}</h5>
-              <p className="card-text text-muted">{service.description}</p>
-              <div className="d-flex justify-content-between align-items-center">
-                <span className="badge bg-success">${service.price}</span>
-                <span className="text-secondary">{service.duration} mins</span>
-              </div>
-            </div>
-            <div className="card-footer bg-white border-top-0">
-              <Link to={`/service/${service._id}`} className="btn btn-outline-secondary w-100 mt-2">View Details</Link>
-            </div>
-          </div>
+     {services.map((service) => (
+  <div key={service._id} className="col-md-4 mb-4">
+    <div className="card h-100 shadow-sm border-0">
+      {/* UPDATE THIS LINE BELOW */}
+      <img 
+        src={service.image} 
+        className="card-img-top" 
+        alt={service.name} 
+        style={{ height: '220px', objectFit: 'cover' }} 
+      />
+      
+      <div className="card-body d-flex flex-column">
+        <h5 className="card-title fw-bold">{service.name}</h5>
+        <p className="card-text text-muted">
+          {service.description.substring(0, 100)}...
+        </p>
+        <div className="mt-auto">
+          <p className="fw-bold text-primary mb-2">${service.price}</p>
+          <Link to={`/service/${service._id}`} className="btn btn-dark w-100">
+            View Details
+          </Link>
         </div>
-      ))}
+      </div>
+    </div>
+  </div>
+))}
     </div>
   );
 };

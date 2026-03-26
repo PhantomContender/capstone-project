@@ -8,11 +8,12 @@
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
-  background-color: var(--zenith-light);
-  color: var(--zenith-slate);
+  background-color: #e8eee8; /* Light Sage Green */
   margin: 0;
+  font-family: 'Inter', -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
 }
 
 h1, h2, h3, .navbar-brand {
@@ -81,4 +82,9 @@ h1, h2, h3, .navbar-brand {
 .table thead {
   background-color: var(--zenith-slate);
   color: var(--zenith-gold);
+}
+
+#root {
+  background-image: radial-gradient(#dce4dc 1px, transparent 1px);
+  background-size: 20px 20px; /* Very subtle micro-dot pattern */
 }

@@ -41,6 +41,7 @@ const Home = () =>
   };
 
   return (
+    <div style={{ backgroundColor: '#e8eeea', minHeight: '100vh', paddingBottom: '3rem' }}>
     <div className="container mt-4">
       <div className="p-5 mb-5 bg-dark text-white rounded-4 shadow-lg" 
            style={{ 
@@ -123,6 +124,7 @@ const Home = () =>
         ))}
       </div>
     </div>
+  </div>
   );
 };
 

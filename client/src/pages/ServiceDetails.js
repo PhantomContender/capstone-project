@@ -45,40 +45,73 @@ const ServiceDetails = () => {
 
   if (!service) return <div>Loading the Archives...</div>;
 
-  return (
-    <div className="container mt-5">
-      <div className="row">
-        <div className="col-md-6">
-          <img src={service.image} alt={service.name} className="img-fluid rounded shadow" />
+return (
+    <div className="container mt-5 mb-5">
+      <div className="row shadow-lg rounded-4 overflow-hidden bg-white border-0">
+        <div className="col-md-6 p-0 d-none d-md-block">
+          <img 
+            src={service.image} 
+            alt={service.name} 
+            style={{ 
+              width: '100%', 
+              height: '100%', 
+              objectFit: 'cover', 
+              minHeight: '600px' 
+            }} 
+          />
         </div>
-        <div className="col-md-6">
-          <h2>{service.name}</h2>
-          <p className="lead">{service.description}</p>
-          <p><strong>Duration:</strong> {service.duration} mins</p>
-          <p><strong>Price:</strong> ${service.price}</p>
+
+        <div className="col-md-6 p-4 p-lg-5">
+          <nav aria-label="breadcrumb" className="mb-3">
+            <ol className="breadcrumb small text-uppercase">
+              <li className="breadcrumb-item"><a href="/" className="text-decoration-none text-muted">Services</a></li>
+              <li className="breadcrumb-item active text-gold" aria-current="page">{service.name}</li>
+            </ol>
+          </nav>
+
+          <h2 className="display-5 fw-bold mb-3">{service.name}</h2>
           
-          <form onSubmit={submitHandler} className="mt-4 p-4 bg-light rounded shadow-sm">
-            <h4>Book Your Appointment</h4>
+          <div className="d-flex gap-3 mb-4">
+            <span className="badge bg-dark px-3 py-2">{service.duration} Mins</span>
+            <span className="badge bg-gold-outline text-dark border border-warning px-3 py-2">Premium Ritual</span>
+          </div>
+
+          <p className="text-muted mb-4 fs-5" style={{ lineHeight: '1.7' }}>
+            {service.description}
+          </p>
+
+          <div className="h3 fw-bold text-success mb-4">
+            ${service.price}
+          </div>
+
+          <hr className="my-4" />
+
+          <form onSubmit={submitHandler} className="mt-2">
             <div className="mb-3">
-              <label className="form-label">Date & Time</label>
+              <label className="form-label fw-bold small text-uppercase">Desired Date & Time</label>
               <input 
                 type="datetime-local" 
-                className="form-control" 
+                className="form-control form-control-lg border-2" 
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
                 required 
               />
             </div>
-            <div className="mb-3">
-              <label className="form-label">Notes for the Practitioner</label>
+
+            <div className="mb-4">
+              <label className="form-label fw-bold small text-uppercase">Special Requests / Notes</label>
               <textarea 
-                className="form-control" 
+                className="form-control border-2" 
                 rows="3"
+                placeholder="Any specific needs for your practitioner..."
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
               ></textarea>
             </div>
-            <button type="submit" className="btn btn-primary w-100">Confirm Booking</button>
+
+            <button type="submit" className="btn btn-zenith btn-lg w-100 shadow-sm py-3">
+              Confirm Ritual
+            </button>
           </form>
         </div>
       </div>
@@ -86,4 +119,4 @@ const ServiceDetails = () => {
   );
 };
 
-export default ServiceDetails;
+export default ServiceDetails; 

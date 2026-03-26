@@ -1,38 +1,84 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@700&display=swap');
+
+:root {
+  --zenith-gold: #D4AF37;       
+  --zenith-slate: #1A1A1A;      
+  --zenith-accent: #B8860B;     
+  --zenith-light: #F4F4F4;      
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--zenith-light);
+  color: var(--zenith-slate);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+h1, h2, h3, .navbar-brand {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.navbar {
+  border-bottom: 2px solid var(--zenith-gold);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-.App-link {
-  color: #61dafb;
+.navbar-brand {
+  color: var(--zenith-gold) !important;
+  font-size: 1.5rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.btn-zenith {
+  background-color: var(--zenith-gold);
+  color: #fff !important;
+  border: none;
+  font-weight: 600;
+  padding: 10px 25px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-zenith:hover {
+  background-color: var(--zenith-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+}
+
+.card {
+  border: none;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: #fff;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+}
+
+.card-img-top {
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  filter: grayscale(20%); 
+  transition: filter 0.3s ease;
+}
+
+.card:hover .card-img-top {
+  filter: grayscale(0%);
+}
+
+.table {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table thead {
+  background-color: var(--zenith-slate);
+  color: var(--zenith-gold);
 }

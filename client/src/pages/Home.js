@@ -25,10 +25,22 @@ const Home = () =>
   return (
     <div className="row mt-4">
       <h2 className="mb-4">Our Premium Services</h2>
+      <div className="p-5 mb-4 bg-dark text-white rounded-3 shadow-lg" 
+     style={{ 
+       backgroundImage: 'linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("/images/hero-bg.jpg")', 
+       backgroundSize: 'cover',
+       backgroundPosition: 'center'
+     }}>
+    <div className="container-fluid py-5 text-center">
+      <h1 className="display-4 fw-bold text-warning">Refined Relaxation, Restored You.</h1>
+        <p className="fs-4 italic">Experience the ultimate rejuvenation at Zenith Wellness.</p>
+          <button className="btn btn-zenith btn-lg mt-3" type="button">Explore Our Signature Treatments</button>
+  </div>
+</div>
      {services.map((service) => (
   <div key={service._id} className="col-md-4 mb-4">
     <div className="card h-100 shadow-sm border-0">
-      {/* UPDATE THIS LINE BELOW */}
+
       <img 
         src={service.image} 
         className="card-img-top" 

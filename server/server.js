@@ -1,9 +1,11 @@
+require('dotenv').config();
 const express = require('express');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const cors = require('cors');
 const { errorHandler } = require('./middleware/errorMiddleware');
 const userRoutes = require('./routes/userRoutes');
+const aiRoutes = require('./routes/aiRoutes');
 
 dotenv.config();
 connectDB();
@@ -19,6 +21,7 @@ app.use('/api/services', require('./routes/serviceRoutes'));
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/appointments', require('./routes/appointmentRoutes'));
 app.use('/api/users', userRoutes);
+app.use('/api/ai', aiRoutes);
 
 app.use(errorHandler);
 

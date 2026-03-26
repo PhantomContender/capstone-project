@@ -27,8 +27,7 @@ const [user, setUser] = useState(null);
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/service/:id" element={<ServiceDetails />} />
-          <Route path="/my-appointments" element={<MyAppointments />} />
-
+          <Route path="/my-appointments" element={<MyAppointments user={user} />} />
         </Routes>
       </main>
     </div>

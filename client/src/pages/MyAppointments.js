@@ -64,9 +64,9 @@ return (
             <thead style={{ backgroundColor: '#1A1A1A', color: '#D4AF37' }}>
               <tr className="text-uppercase small letter-spacing-1">
                 <th className="ps-4 py-3">Service Description</th>
-                <th className="py-3">Scheduled Date</th>
+                <th className="py-3">Appointment Date/Time</th>
                 <th className="py-3 text-center">Duration</th>
-                <th className="py-3 text-end">Investment</th>
+                <th className="py-3 text-end">Price</th>
                 <th className="pe-4 py-3 text-end">Action</th>
               </tr>
             </thead>
@@ -100,7 +100,7 @@ return (
                       className="btn btn-outline-danger btn-sm border-0"
                       onClick={() => cancelHandler(app._id)}
                     >
-                      <i className="bi bi-x-circle me-1"></i> Cancel Rite
+                      <i className="bi bi-x-circle me-1"></i> Cancel Appointment
                     </button>
                   </td>
                 </tr>

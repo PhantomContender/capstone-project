@@ -61,7 +61,7 @@ const Home = () =>
           <div className="card bg-slate text-white p-4 shadow-lg border-gold animate__animated animate__fadeIn">
             <div className="card-body">
               <h3 className="text-warning fw-bold mb-2">CONSULT THE ZENITH ASSISTANT</h3>
-              <p className="text-muted mb-4">Descibe your fatigue and desired result; let the AI determine your path.</p>
+              <p className="text-muted mb-4">Descibe your fatigue and desired result; let our AI assistant suggest your ideal service.</p>
               
               <form onSubmit={consultAugur} className="input-group mb-3">
                 <input 

@@ -24,7 +24,7 @@ const Navbar = ({ user, setUser }) => {
 
           {user ? (
             <>
-                <Link className="nav-link" to="/my-appointments">My Ledger</Link>
+                <Link className="nav-link" to="/my-appointments">My Appointments</Link>
             
               <span className="nav-link text-info">Hello, {user.name}</span>
               <button className="btn btn-outline-light ms-2" onClick={handleLogout}>

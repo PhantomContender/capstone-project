@@ -38,7 +38,7 @@ const ServiceDetails = () => {
   } 
   catch (err) 
   {
-    const errorMsg = err.response?.data?.message || 'The booking ritual failed.';
+    const errorMsg = err.response?.data?.message || 'The booking failed.';
     alert(errorMsg);
   }
 };
@@ -73,7 +73,7 @@ return (
           
           <div className="d-flex gap-3 mb-4">
             <span className="badge bg-dark px-3 py-2">{service.duration} Mins</span>
-            <span className="badge bg-gold-outline text-dark border border-warning px-3 py-2">Premium Ritual</span>
+            <span className="badge bg-gold-outline text-dark border border-warning px-3 py-2">Premium Service</span>
           </div>
 
           <p className="text-muted mb-4 fs-5" style={{ lineHeight: '1.7' }}>
@@ -110,7 +110,7 @@ return (
             </div>
 
             <button type="submit" className="btn btn-zenith btn-lg w-100 shadow-sm py-3">
-              Confirm Ritual
+              Book Appointment
             </button>
           </form>
         </div>

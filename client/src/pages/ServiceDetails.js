@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import api from '../api';
 
 const ServiceDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  const { referredByAI, justification } = location.state || {};
   const [service, setService] = useState(null);
   const [date, setDate] = useState('');
   const [notes, setNotes] = useState('');
@@ -68,7 +70,21 @@ return (
               <li className="breadcrumb-item active text-gold" aria-current="page">{service.name}</li>
             </ol>
           </nav>
-
+{referredByAI && (
+  <div className="alert bg-dark text-warning border-warning border-start border-4 mb-4 animate__animated animate__fadeIn">
+    <div className="d-flex align-items-center">
+      <div className="me-3">
+        <i className="bi bi-robot fs-3"></i> {/* If you have Bootstrap Icons */}
+      </div>
+      <div>
+        <h6 className="fw-bold mb-1 text-uppercase small">Zenith Assistant Recommendation</h6>
+        <p className="mb-0 italic small" style={{ opacity: 0.9 }}>
+          "{justification}"
+        </p>
+      </div>
+    </div>
+  </div>
+)}
           <h2 className="display-5 fw-bold mb-3">{service.name}</h2>
           
           <div className="d-flex gap-3 mb-4">

@@ -1,37 +1,48 @@
 const express = require('express');
 const router = express.Router();
 const { GoogleGenerativeAI } = require("@google/generative-ai");
+const Service = require('../models/Service');
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 router.post('/recommend', async (req, res) => {
-  const { prompt } = req.body;
+  const { userInquiry } = req.body; 
 
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    const dbServices = await Service.find({});
+    const serviceMenu = dbServices.map(s => 
+      `${s.name} (ID: ${s._id}) - ${s.description}`
+    ).join('\n');
+    const model = genAI.getGenerativeModel({ 
+        model: "gemini-2.5-flash",
+        generationConfig: { responseMimeType: "application/json" } 
+    });
 
-    const systemInstruction = `
-      You are the 'Zenith Assistant', a sophisticated AI assistant for Zenith Wellness Clinic. 
-      Your tone is calm and professional.
-      Based on the user's physical or mental fatigue, recommend ONE of these services:
-      1. Zenith Deep Tissue Massage - for intense muscle pain.
-      2. Himalayan Salt Stone Ritual - for stress and circulation.
-      3. Guided Mindfulness Meditation - for mental clarity.
-      4. Express Radiance Facial Treatment - for skin health.
-      5. Infared Sauna Therapy - for detoxification, circulation, and muscle recovery.
-      6. Holistic Wellness Assessment - for personalized health insights
+   const systemInstruction = `
+      You are the 'Zenith Assistant' for Zenith Wellness Clinic. Tone: calm, professional. 
+      Analyze the user's input: "${userInquiry}".
       
-      Keep your response under 3 sentences. Be encouraging.
-    `;
+      Suggest 1 to 3 relevant services from this ACTUAL menu:
+      ${serviceMenu}
 
-    const result = await model.generateContent([systemInstruction, prompt]);
+      Return ONLY a JSON object:
+      {
+        "message": "Encouraging response under 3 sentences.",
+        "suggestions": [{ "serviceName": "...", "justification": "...", "serviceID": "MUST_BE_THE_REAL_ID_FROM_MENU" }]
+      }`;
+
+    const result = await model.generateContent(systemInstruction);
     const response = await result.response;
-    const text = response.text();
+    const data = JSON.parse(response.text());
+    
+    res.json(data);
 
-    res.json({ recommendation: text });
   } catch (error) {
     console.error("Assistant Error:", error);
-    res.status(500).json({ recommendation: "Zenith Assistant is currently unavailable. Please consult the ledger directly." });
+    res.status(500).json({ 
+        message: "The Zenith Assistant is resting. Please try again shortly.",
+        suggestions: [] 
+    });
   }
 });
 

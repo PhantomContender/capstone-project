@@ -26,27 +26,30 @@ const Home = () =>
     fetchServices();
   }, []);
 
-  const consultAugur = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      const { data } = await api.post('/ai/recommend', { prompt: userPrompt });
-      setAiResponse(data.recommendation);
-    } 
-    catch (err) 
-    {
-      setAiResponse("The forge-mind is currently occluded. Try again shortly.");
-    }
-    setLoading(false);
-  };
+const consultAugur = async (e) => {
+  e.preventDefault();
+  setAiResponse(null); 
+  setLoading(true);    
+  
+  try {
+    const { data } = await api.post('/ai/recommend', { userInquiry: userPrompt });
+    setAiResponse(data); 
+  } catch (err) {
+    setAiResponse({ 
+      message: "The Zenith Assistant is currently occluded.", 
+      suggestions: [] 
+    });
+  } finally {
+    setLoading(false); 
+  }
+};
 
   return (
     <div style={{ backgroundColor: '#e8eeea', minHeight: '100vh', paddingBottom: '3rem' }}>
     <div className="container mt-4">
       <div className="p-5 mb-5 bg-dark text-white rounded-4 shadow-lg" 
            style={{ 
-             backgroundImage: 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url("/images/hero-bg.jpg")', 
-             backgroundSize: 'cover',
+            backgroundImage: 'linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url("https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=2070")',             backgroundSize: 'cover',
              backgroundPosition: 'center'
            }}>
         <div className="container-fluid py-5 text-center">
@@ -72,21 +75,65 @@ const Home = () =>
                   onChange={(e) => setUserPrompt(e.target.value)}
                   required
                 />
-                <button className="btn btn-zenith px-4" type="submit" disabled={loading}>
-                  {loading ? 'Consulting...' : 'Consult'}
-                </button>
+             <button className="btn btn-zenith px-4" type="submit" disabled={loading}>
+              {loading ? (
+                <>
+                  <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                  Consulting...
+                </>
+              ) : (
+                'Consult'
+              )}
+            </button>
               </form>
+{loading && (
+  <div className="p-4 bg-dark rounded border-start border-warning border-4 mt-3 animate__animated animate__pulse animate__infinite">
+    <p className="mb-0 italic text-warning">The Zenith Assistant is analyzing your needs...</p>
+    <div className="row g-3 mt-2">
+      {[1, 2, 3].map((i) => (
+        <div key={i} className="col-md-4">
+          <div className="card bg-secondary border-0 h-100 opacity-50">
+            <div className="card-body p-3">
+              <div className="placeholder-glow">
+                <span className="placeholder col-8 bg-warning mb-2"></span>
+                <span className="placeholder col-12 bg-light"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
+           {aiResponse && (
+  <div className="p-4 bg-dark rounded border-start border-warning border-4 mt-3 animate__animated animate__fadeInUp">
+    <div className="d-flex justify-content-between align-items-start mb-3">
+      <p className="mb-0 italic text-white" style={{ fontSize: '1.1rem' }}>
+        {aiResponse.message}
+      </p>
+      <button className="btn btn-sm text-muted" onClick={() => setAiResponse(null)}>✕</button>
+    </div>
 
-              {aiResponse && (
-  <div className="p-3 bg-dark rounded border-start border-warning border-4 mt-3 animate__animated animate__fadeInUp">
-    <div className="d-flex justify-content-between align-items-start">
-      <p className="mb-0 italic font-monospace text-white">"{aiResponse}"</p>
-      <button 
-        className="btn btn-sm text-muted" 
-        onClick={() => setAiResponse(null)}
-      >
-        ✕
-      </button>
+    <div className="row g-3">
+      {aiResponse.suggestions?.map((suggestion, index) => (
+        <div key={index} className="col-md-4">
+          <div className="card bg-secondary text-white border-0 h-100 shadow-sm">
+            <div className="card-body p-3">
+              <h6 className="text-warning fw-bold">{suggestion.serviceName}</h6>
+              <p className="small mb-3 text-light" style={{ fontSize: '0.8rem' }}>
+                {suggestion.justification}
+              </p>
+              <Link 
+                to={`/service/${suggestion.serviceID}`} 
+                state={{ referredByAI: true, justification: suggestion.justification }}
+                className="btn btn-outline-warning btn-sm w-100"
+              >
+                Book Now
+              </Link>
+            </div>
+          </div>
+        </div>
+      ))}
     </div>
   </div>
 )}
@@ -95,7 +142,6 @@ const Home = () =>
         </div>
       </div>
 
-      {/* 3. SERVICE GALLERY */}
       <h2 id="services" className="mb-4 text-center fw-bold">Our Premium Services</h2>
       <div className="row">
         {services.map((service) => (
@@ -113,10 +159,10 @@ const Home = () =>
                   {service.description.substring(0, 100)}...
                 </p>
                 <div className="mt-auto">
-                  <p className="fw-bold text-dark mb-2">${service.price}</p>
-                  <Link to={`/service/${service._id}`} className="btn btn-zenith w-100">
-                    View Details
-                  </Link>
+                <p className="fw-bold text-dark mb-2">${service.price}</p>
+            <Link to={`/service/${service._id}`} className="btn btn-zenith w-100">
+              View Details
+            </Link>
                 </div>
               </div>
             </div>

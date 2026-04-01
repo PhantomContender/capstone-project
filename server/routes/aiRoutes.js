@@ -18,7 +18,7 @@ router.post('/recommend', async (req, res) => {
       2. Himalayan Salt Stone Ritual - for stress and circulation.
       3. Guided Mindfulness Meditation - for mental clarity.
       4. Express Radiance Facial Treatment - for skin health.
-      5. Infared Sauna Therap - for detoxification, circulation, and muscle recovery.
+      5. Infared Sauna Therapy - for detoxification, circulation, and muscle recovery.
       6. Holistic Wellness Assessment - for personalized health insights
       
       Keep your response under 3 sentences. Be encouraging.
@@ -31,7 +31,7 @@ router.post('/recommend', async (req, res) => {
     res.json({ recommendation: text });
   } catch (error) {
     console.error("Assistant Error:", error);
-    res.status(500).json({ recommendation: "The stars are occluded. Please consult the ledger directly." });
+    res.status(500).json({ recommendation: "Zenith Assistant is currently unavailable. Please consult the ledger directly." });
   }
 });
 

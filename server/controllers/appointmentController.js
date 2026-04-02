@@ -5,7 +5,6 @@ exports.addAppointment = async (req, res) => {
   try {
     const { service, appointmentDate, notes } = req.body;
 
-    // 1. Check if an appointment already exists at this exact time
     const existingAppointment = await Appointment.findOne({ appointmentDate });
 
     if (existingAppointment) {
@@ -14,7 +13,6 @@ exports.addAppointment = async (req, res) => {
       });
     }
 
-    // 2. If clear, proceed with creation
     const appointment = await Appointment.create({
       user: req.user.id, 
       service,
@@ -28,58 +26,46 @@ exports.addAppointment = async (req, res) => {
   }
 };
 
-exports.getMyAppointments = async (req, res) => 
-    {
-    try 
-    {
+exports.getMyAppointments = async (req, res) => {
+  try {
     const appointments = await Appointment.find({ user: req.user.id })
-      .populate('service', 'name duration price');
+      .populate('service', 'name duration price')
+      .sort({ appointmentDate: 1 }); 
 
-    res.json(appointments);
-  } 
-  catch (error) 
-  {
-    res.status(500).json({ message: error.message });
+    res.status(200).json(appointments);
+  } catch (error) {
+    res.status(500).json({ message: 'The Ledger is occluded: ' + error.message });
   }
 };
 
-exports.cancelAppointment = async (req, res) => 
-{
-    try 
-    {
+exports.cancelAppointment = async (req, res) => {
+  try {
     const appointment = await Appointment.findById(req.params.id);
 
-    if (!appointment) 
-    {
+    if (!appointment) {
       return res.status(404).json({ message: 'Appointment not found' });
     }
 
-    if (appointment.user.toString() !== req.user.id) 
-    {
+    if (appointment.user.toString() !== req.user.id) {
       return res.status(401).json({ message: 'User not authorized' });
     }
 
     await appointment.deleteOne();
     res.json({ message: 'Appointment cancelled successfully' });
-  } 
-  catch (error) 
-  {
+  } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-exports.getAllAppointments = async (req, res) => 
-{
-  try 
-  {
+exports.getAllAppointments = async (req, res) => {
+  try {
     const appointments = await Appointment.find({})
       .populate('user', 'name email')
-      .populate('service', 'name price');
+      .populate('service', 'name price')
+      .sort({ appointmentDate: 1 }); 
     
     res.json(appointments);
-  } 
-  catch (error) 
-  {
+  } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };

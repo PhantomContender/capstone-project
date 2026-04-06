@@ -36,7 +36,7 @@ const getServiceById = async (req, res) => {
       res.status(404).json({ message: 'Service not found in the archives.' });
     }
   } catch (error) {
-    res.status(500).json({ message: 'The archives are currently occluded: ' + error.message });
+    res.status(500).json({ message: 'The archives are currently unavailable: ' + error.message });
   }
 };
 

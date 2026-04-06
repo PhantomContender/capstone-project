@@ -40,7 +40,7 @@ router.post('/recommend', async (req, res) => {
   } catch (error) {
     console.error("Assistant Error:", error);
     res.status(500).json({ 
-        message: "The Zenith Assistant is resting. Please try again shortly.",
+        message: "The Zenith Assistant is unavailable. Please try again shortly.",
         suggestions: [] 
     });
   }

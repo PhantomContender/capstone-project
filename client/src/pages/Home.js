@@ -36,7 +36,7 @@ const consultAugur = async (e) => {
     setAiResponse(data); 
   } catch (err) {
     setAiResponse({ 
-      message: "The Zenith Assistant is currently occluded.", 
+      message: "The Zenith Assistant is currently unavailable.", 
       suggestions: [] 
     });
   } finally {

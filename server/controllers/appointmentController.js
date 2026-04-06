@@ -34,7 +34,7 @@ exports.getMyAppointments = async (req, res) => {
 
     res.status(200).json(appointments);
   } catch (error) {
-    res.status(500).json({ message: 'The Ledger is occluded: ' + error.message });
+    res.status(500).json({ message: 'The Ledger is unavailable: ' + error.message });
   }
 };
 

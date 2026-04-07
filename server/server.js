@@ -12,7 +12,10 @@ connectDB();
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: ['https://your-netlify-app-name.netlify.app', 'http://localhost:3000'],
+  credentials: true
+}));
 app.use(express.json());
 
 app.use('/api/services', require('./routes/serviceRoutes'));

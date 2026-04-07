@@ -1,17 +1,15 @@
 const mongoose = require('mongoose');
 
-const connectDB = async () => 
-    {
-        try {
-            const conn = await mongoose.connect(process.env.MONGO_URI);
-    
-            console.log(`Zenith Database Connected: ${conn.connection.host}`);
-            console.log(`Database Name: ${conn.connection.name}`);
-        } 
-        catch (error) 
-        {
-            console.error(`Error: ${error.message}`);
-    process.exit(1);
+const connectDB = async () => {
+  try {
+    const mongoURI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/Zenith';
+
+    const conn = await mongoose.connect(mongoURI);
+
+    console.log(`The Archives are Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.error(`Connection Failed: ${error.message}`);
+    process.exit(1); 
   }
 };
 

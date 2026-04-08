@@ -15,7 +15,7 @@ const Home = () =>
     {
       try 
       {
-        const res = await api.get('/services');
+        const res = await api.get('services');
         setServices(res.data);
       } 
       catch (err) 

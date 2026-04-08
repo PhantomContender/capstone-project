@@ -15,7 +15,7 @@ const Home = () =>
     {
       try 
       {
-        const res = await api.get('services');
+        const res = await api.get('https://zenith-wellness.onrender.com/api/services');
         setServices(res.data);
       } 
       catch (err) 
@@ -32,7 +32,7 @@ const consultAugur = async (e) => {
   setLoading(true);    
   
   try {
-    const { data } = await api.post('/ai/recommend', { userInquiry: userPrompt });
+    const { data } = await api.post('https://zenith-wellness.onrender.com/api/ai/recommend', { userInquiry: userPrompt });
     setAiResponse(data); 
   } catch (err) {
     setAiResponse({ 

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://zenith-wellness-spa.onrender.com/api',
+  baseURL: 'https://zenith-wellness.onrender.com/api',
 });
 
 api.interceptors.request.use((config) => {

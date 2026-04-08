@@ -13,7 +13,7 @@ connectDB();
 const app = express();
 
 app.use(cors({
-  origin: ['https://zenith-wellness-spa.netlify.app', 'http://localhost:3000'],
+  origin: ['https://69d679fda9622c5801399037--zenith-wellness-spa.netlify.app', 'http://localhost:3000'],
   credentials: true
 }));
 app.use(express.json());

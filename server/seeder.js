@@ -16,7 +16,7 @@ const services = [
     description: "A therapeutic treatment focusing on realigning deeper layers of muscles and connective tissue.",
     duration: 60,
     price: 120,
-    image: "https://images.unsplash.com/photo-1544161515-4ae6ce6db874?w=500"
+    image: "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=800&auto=format&fit=crop"
   },
   {
     name: "Express Radiance Facial Treatment",

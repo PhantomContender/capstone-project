@@ -1,13 +1,11 @@
-require('dotenv').config();
+require('dotenv').config(); 
 const express = require('express');
-const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const cors = require('cors');
 const { errorHandler } = require('./middleware/errorMiddleware');
 const userRoutes = require('./routes/userRoutes');
 const aiRoutes = require('./routes/aiRoutes');
 
-dotenv.config();
 connectDB();
 
 const app = express();
@@ -23,6 +21,10 @@ app.use(cors({
 }));
 app.use(express.json());
 
+app.get('/', (req, res) => {
+  res.send('🌿 Zenith Wellness API is active and connected to the Archives.');
+});
+
 app.use('/api/services', require('./routes/serviceRoutes'));
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/appointments', require('./routes/appointmentRoutes'));
@@ -32,7 +34,6 @@ app.use('/api/ai', aiRoutes);
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => 
-{
+app.listen(PORT, () => {
   console.log(`Zenith Server running on port ${PORT}`);
 });

@@ -10,6 +10,34 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Connected to MongoDB Atlas...'))
   .catch(err => console.error('Connection error:', err));
 
+    const users = [
+      {
+        
+        name: 'Admin User',
+        email: 'admin@zenith.com',
+        password: 'password123', 
+        isAdmin: true,
+      },
+      {
+        name: 'Sally Smith',
+        email: 'ssmith@gmail.com',
+        password: 'password456',
+        isAdmin: false,
+      },
+      {
+        name: 'Todd Jones',
+        email: 'tjones@gmail.com',
+        password: 'password789',
+        isAdmin: false,
+      },
+      {
+        name: 'Kurt Russell',
+        email: 'krussell@gmail.com',
+        password: 'password1011',
+        isAdmin: false,
+      }
+    ];
+
 const services = [
   {
     name: "Zenith Deep Tissue Massage",
@@ -61,9 +89,10 @@ const importData = async () => {
     await Service.deleteMany();
     await User.deleteMany();
 
+    await User.create(users); 
     await Service.insertMany(services);
-    
-    console.log('🔥 Success: Data Imported to Atlas! 🔥');
+
+    console.log('🔥 Success: Users and Services Imported to Atlas! 🔥');
     process.exit();
   } catch (error) {
     console.error('Import failed:', error.message);

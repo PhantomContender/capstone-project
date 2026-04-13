@@ -14,7 +14,7 @@ router.post('/recommend', async (req, res) => {
       `${s.name} (ID: ${s._id}) - ${s.description}`
     ).join('\n');
     const model = genAI.getGenerativeModel({ 
-        model: "gemini-2.5-flash",
+        model: "gemini-1.5-flash",
         generationConfig: { responseMimeType: "application/json" } 
     });
 

@@ -13,10 +13,7 @@ router.post('/recommend', async (req, res) => {
     const serviceMenu = dbServices.map(s => 
       `${s.name} (ID: ${s._id}) - ${s.description}`
     ).join('\n');
-    const model = genAI.getGenerativeModel({ 
-        model: "gemini-1.5-flash",
-        generationConfig: { responseMimeType: "application/json" } 
-    });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
    const systemInstruction = `
       You are the 'Zenith Assistant' for Zenith Wellness Clinic. Tone: calm, professional. 
@@ -30,10 +27,14 @@ router.post('/recommend', async (req, res) => {
         "message": "Encouraging response under 3 sentences.",
         "suggestions": [{ "serviceName": "...", "justification": "...", "serviceID": "MUST_BE_THE_REAL_ID_FROM_MENU" }]
       }`;
-
-    const result = await model.generateContent(systemInstruction);
+    const result = await model.generateContent({
+      contents: [{ role: 'user', parts: [{ text: systemInstruction }] }],
+      generationConfig: { responseMimeType: "application/json" }
+    });
     const response = await result.response;
-    const data = JSON.parse(response.text());
+    const text = response.text();
+    const cleanJson = text.replace(/```json|```/g, "").trim();
+    const data = JSON.parse(cleanJson);
     
     res.json(data);
 

@@ -13,26 +13,25 @@ router.post('/recommend', async (req, res) => {
     const serviceMenu = dbServices.map(s => 
       `${s.name} (ID: ${s._id}) - ${s.description}`
     ).join('\n');
+
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-   const systemInstruction = `
-      You are the 'Zenith Assistant' for Zenith Wellness Clinic. Tone: calm, professional. 
+    const systemInstruction = `
+      You are the 'Zenith Assistant'. Tone: calm, professional. 
       Analyze the user's input: "${userInquiry}".
-      
-      Suggest 1 to 3 relevant services from this ACTUAL menu:
+      Suggest 1 to 3 relevant services from this menu:
       ${serviceMenu}
 
       Return ONLY a JSON object:
       {
-        "message": "Encouraging response under 3 sentences.",
-        "suggestions": [{ "serviceName": "...", "justification": "...", "serviceID": "MUST_BE_THE_REAL_ID_FROM_MENU" }]
+        "message": "...",
+        "suggestions": [{ "serviceName": "...", "justification": "...", "serviceID": "..." }]
       }`;
-    const result = await model.generateContent({
-      contents: [{ role: 'user', parts: [{ text: systemInstruction }] }],
-      generationConfig: { responseMimeType: "application/json" }
-    });
+
+    const result = await model.generateContent(systemInstruction);
     const response = await result.response;
     const text = response.text();
+    
     const cleanJson = text.replace(/```json|```/g, "").trim();
     const data = JSON.parse(cleanJson);
     
@@ -41,7 +40,7 @@ router.post('/recommend', async (req, res) => {
   } catch (error) {
     console.error("Assistant Error:", error);
     res.status(500).json({ 
-        message: "The Zenith Assistant is unavailable. Please try again shortly.",
+        message: "The Zenith Assistant is temporarily offline.",
         suggestions: [] 
     });
   }

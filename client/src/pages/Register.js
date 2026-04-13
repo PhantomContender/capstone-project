@@ -13,7 +13,7 @@ const Register = ({ setUser }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await api.post('/api/auth/register', {
+      const { data } = await api.post('/auth/register', {
         name,
         email,
         password

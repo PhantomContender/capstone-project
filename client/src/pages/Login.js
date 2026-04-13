@@ -52,14 +52,14 @@ const Login = ({ setUser }) => {
                 />
               </div>
               <button type="submit" className="btn btn-primary w-100 py-2">
-                Unlock Access
+                Sign In
               </button>
             </form>
 
             <div className="mt-4 text-center">
               <p className="mb-0 text-muted">New to Zenith Wellness?</p>
               <Link to="/register" className="text-primary fw-bold text-decoration-none">
-                Initiate Registration Protocol
+                Sign Up Now
               </Link>
             </div>
             {/* ------------------------------- */}

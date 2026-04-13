@@ -13,28 +13,28 @@ mongoose.connect(process.env.MONGO_URI)
     const users = [
       {
         
-        name: 'Admin User',
+        name: 'Zenith Admin',
         email: 'admin@zenith.com',
         password: 'password123', 
-        isAdmin: true,
+        role: 'admin',
       },
       {
         name: 'Sally Smith',
         email: 'ssmith@gmail.com',
         password: 'password456',
-        isAdmin: false,
+        role: 'client',
       },
       {
         name: 'Todd Jones',
         email: 'tjones@gmail.com',
         password: 'password789',
-        isAdmin: false,
+        role: 'client',
       },
       {
         name: 'Kurt Russell',
         email: 'krussell@gmail.com',
         password: 'password1011',
-        isAdmin: false,
+        role: 'client',
       }
     ];
 

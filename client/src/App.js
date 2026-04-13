@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import ServiceDetails from './pages/ServiceDetails';
 import MyAppointments from './pages/MyAppointments';
+import Register from './pages/Register';
 
 function App() {
 
@@ -26,6 +27,7 @@ const [user, setUser] = useState(null);
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login setUser={setUser} />} />
+          <Route path="/register" element={<Register setUser={setUser} />} />
           <Route path="/service/:id" element={<ServiceDetails />} />
           <Route path="/my-appointments" element={<MyAppointments user={user} />} />
         </Routes>

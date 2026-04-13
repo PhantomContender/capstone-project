@@ -35,6 +35,9 @@ const Navbar = ({ user, setUser }) => {
             <>
               <span className="nav-link text-muted">Hello, Guest</span>
               <Link className="nav-link" to="/login">Login</Link>
+              <Link className="nav-link btn btn-outline-info btn-sm ms-2 text-white" to="/register">
+                Register
+              </Link>
             </>
           )}
         </div>

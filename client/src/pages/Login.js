@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom'; 
 import api from '../api';
 
 const Login = ({ setUser }) => {
@@ -8,8 +8,7 @@ const Login = ({ setUser }) => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => 
-    {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const { data } = await api.post('/api/auth/login', { email, password });
@@ -56,6 +55,15 @@ const Login = ({ setUser }) => {
                 Unlock Access
               </button>
             </form>
+
+            <div className="mt-4 text-center">
+              <p className="mb-0 text-muted">New to Zenith Wellness?</p>
+              <Link to="/register" className="text-primary fw-bold text-decoration-none">
+                Initiate Registration Protocol
+              </Link>
+            </div>
+            {/* ------------------------------- */}
+
           </div>
         </div>
       </div>

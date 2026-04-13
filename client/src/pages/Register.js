@@ -68,7 +68,7 @@ const Register = ({ setUser }) => {
                 />
               </div>
               <button type="submit" className="btn btn-primary w-100 py-2">
-                Initiate Protocol
+                Sign Up Now
               </button>
             </form>
             <div className="mt-3 text-center">

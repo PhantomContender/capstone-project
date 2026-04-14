@@ -14,7 +14,7 @@ router.post('/recommend', async (req, res) => {
       `${s.name} (ID: ${s._id}) - ${s.description}`
     ).join('\n');
 
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" }, {apiVersion: 'v1'});
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" }, { apiVersion: 'v1' });
 
     const systemInstruction = `
       You are the 'Zenith Assistant'. Tone: calm, professional. 
@@ -32,18 +32,26 @@ router.post('/recommend', async (req, res) => {
     const response = await result.response;
     const text = response.text();
     
-    const cleanJson = text.replace(/```json|```/g, "").trim();
-    const data = JSON.parse(cleanJson);
-    
-    res.json(data);
+    const cleanJson = text.replace(/```json|```/g, "").trim(); 
+
+    try {
+      const data = JSON.parse(cleanJson);
+      res.json(data);
+    } catch (parseError) {
+      console.error("Parsing Error:", parseError);
+      res.status(200).json({ 
+        message: "I have some suggestions for you!", 
+        suggestions: [] 
+      }); 
+    }
 
   } catch (error) {
     console.error("Assistant Error:", error);
     res.status(500).json({ 
-        message: "The Zenith Assistant is temporarily offline.",
-        suggestions: [] 
+      message: "The Zenith Assistant is temporarily offline.",
+      suggestions: [] 
     });
   }
-});
+}); 
 
 module.exports = router;

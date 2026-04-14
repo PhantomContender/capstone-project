@@ -14,7 +14,7 @@ router.post('/recommend', async (req, res) => {
       `${s.name} (ID: ${s._id}) - ${s.description}`
     ).join('\n');
 
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" }, { apiVersion: 'v1beta' });
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" }, { apiVersion: 'v1beta' });
 
     const systemInstruction = `
       You are the 'Zenith Assistant'. Tone: calm, professional. 
